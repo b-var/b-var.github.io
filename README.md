@@ -1,52 +1,58 @@
-Boris Vargas
+BORIS VARGAS
 
 Senior Business Consultant | Conversational AI Architect
 
+⬛ Professional Profile
 
-[suspicious link removed]
+Strategic Senior Business Consultant and Conversational AI Architect with 23 years of evolution at TELUS. I specialize in transforming customer experiences through data-driven AI solutions, moving away from "intuition-based" design toward empirical, conversation-led learning.
 
+Expert in Dialogflow CX and Genesys Designer, with a proven track record of delivering multi-million dollar savings through complex automation and optimized customer journeys.
 
-🚀 Professional Profile
+🛠 Core Competencies
 
-Strategic leader with 23 years of experience at TELUS, progressing from technical network support to architecting enterprise-scale Conversational AI solutions. I bridge the gap between complex business requirements and cutting-edge automation technology to deliver measurable ROI and superior customer experiences.
+Conversational AI
 
-🎯 Key Impact (2025)
+Platforms: Dialogflow CX, Genesys Designer
 
-$2M Savings: Optimized 29 enterprise AI projects for operational efficiency.
+Architecture: Intent Modeling, Tuning, Voice/Chatbot Design
 
-50% Reduction: Halved live-agent transfer rates through iterative Voice Bot tuning.
+Advanced: LLM Prompt Engineering, Conversation-led Learning
 
-70% Containment: Achieved benchmark-setting automation for chat channels.
+Strategic Analysis
 
-🛠 Core Technical Stack
+ROI: CX Transformation & Operational Savings
 
-AI Platforms: Dialogflow CX, Genesys Designer.
+CX: Digital Containment Strategy, Journey Mapping
 
-Methodology: Intent Modeling, LLM Prompt Engineering, Journey Mapping, Data-Driven Iterative Tuning.
+Execution: Functional & Non-Functional Requirements, Gap Analysis
 
-CRM/ITSM: Salesforce, ServiceNow, Jira, Remedy/ARS.
+Platforms & Tools
 
-Technical Foundations: Cisco Networking, System Analysis (Linux, C/C++).
+Enterprise: Salesforce, ServiceNow, Jira
 
-💼 Experience Highlight
+Technical: Remedy/ARS, Lucidchart, API Integration Basics
 
-TELUS | Conversational AI Architect 2023 – Present
+📈 High-Impact Delivery (2025)
 
-Leading the shift from "design by guessing" to data-driven AI learning.
+$2,000,000 Savings: Managed 29 enterprise-scale AI projects for business optimization.
 
-Integrating Salesforce/ServiceNow data points directly into Dialogflow CX logic.
+50% Transfer Reduction: Lowered live-agent transfer rates from 12% to 6% via iterative tuning.
 
-Enhancing digital self-service capabilities across wireless and wireline portfolios.
+Digital Containment: Achieved 70% containment for Chat bots and 26% for Voice.
 
-TELUS | Senior Business Analyst 2019 – 2023
+💼 Experience at TELUS (2003 – Present)
 
-Developed executive KPI dashboards and led regional workflow standardization.
+Business Consultant | Conversational AI Architect Jan 2023 – Present Eliminating "design by guessing" through empirical feedback loops and transcript analysis. Integrating Salesforce/ServiceNow data into Dialogflow CX logic.
+
+Senior Business Analyst Jan 2019 – Dec 2023 Led cross-functional process improvement and provided KPI dashboards for executive leadership.
+
+Evolutionary Tenure 2003 – 2019 Progressed through roles including Customer Implementation Manager and Network Support Analyst, managing high-value enterprise escalations and technical infrastructure support.
 
 🎓 Education
 
-AEC Networking Specialization | LaSalle College
+AEC - Networking Specialization | LaSalle College, Montreal
 
-DEC Computer Science | Collège de Rosemont
+DEC - Computer Science | Collège de Rosemont, Montreal
 
 🌐 Languages
 
@@ -56,4 +62,4 @@ French (Fluent)
 
 Spanish (Fluent)
 
-This repository contains the source code for my professional portfolio site.
+This repository hosts the source code for my Professional Portfolio Site.
