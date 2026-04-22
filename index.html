@@ -19,14 +19,6 @@
         .bg-custom-gray { background-color: #f9fafb; }
         .skill-tag { border: 1px solid #e5e7eb; padding: 0.35rem 1rem; border-radius: 4px; font-size: 0.85rem; font-weight: 600; color: #111827; transition: all 0.2s; background-color: #fefefe; }
         .skill-tag:hover { border-color: #111827; background-color: #111827; color: #ffffff; cursor: default; }
-
-        /* Ensure the chat widget stays in its own floating window */
-        chat-messenger {
-            z-index: 999;
-            position: fixed;
-            bottom: 16px;
-            right: 16px;
-        }
     </style>
 </head>
 <body class="bg-white text-gray-900">
@@ -42,18 +34,113 @@
                     <i class="fab fa-linkedin"></i> Connect on LinkedIn
                 </a>
             </div>
+            <div class="mt-8 flex justify-center gap-3">
+                <span class="bg-gray-100 px-3 py-1 rounded text-[10px] uppercase tracking-widest font-black text-gray-500 border border-gray-200">English</span>
+                <span class="bg-gray-100 px-3 py-1 rounded text-[10px] uppercase tracking-widest font-black text-gray-500 border border-gray-200">Français</span>
+                <span class="bg-gray-100 px-3 py-1 rounded text-[10px] uppercase tracking-widest font-black text-gray-500 border border-gray-200">Español</span>
+            </div>
         </div>
     </header>
 
     <main class="container mx-auto px-6 py-16 max-w-5xl">
+        
+        <section id="about" class="mb-20">
+            <h2 class="text-xl font-black text-gray-900 section-heading uppercase tracking-wider">About Me</h2>
+            <div class="grid md:grid-cols-3 gap-10 items-start">
+                <div class="md:col-span-2">
+                    <p class="text-lg leading-relaxed text-gray-700 mb-4">
+                        Born in **El Salvador** and having moved to Canada at a young age, I have spent my life navigating and bridging different cultures and languages. This unique background made me **perfectly trilingual** and instilled in me a deep appreciation for clear, effective communication—a trait that defines my work in Conversational AI.
+                    </p>
+                    <p class="text-lg leading-relaxed text-gray-700">
+                        Beyond the boardroom, I am a lifelong "tinkerer" fueled by a passion for technology and continuous learning. Whether I am fine-tuning a **3D printer**, capturing moments through a **camera lens**, or experimenting with the latest tech trends, I thrive on understanding how things work and finding ways to make them better.
+                    </p>
+                </div>
+                <div class="bg-custom-gray p-6 border border-gray-200 rounded-sm">
+                    <h3 class="font-bold text-sm uppercase tracking-tighter mb-4 text-gray-500">Passions & Interests</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-sm font-medium"><i class="fas fa-cube text-gray-400 w-5"></i> 3D Printing & Design</li>
+                        <li class="flex items-center gap-3 text-sm font-medium"><i class="fas fa-camera text-gray-400 w-5"></i> Photography</li>
+                        <li class="flex items-center gap-3 text-sm font-medium"><i class="fas fa-microchip text-gray-400 w-5"></i> Hardware Tinkering</li>
+                        <li class="flex items-center gap-3 text-sm font-medium"><i class="fas fa-rocket text-gray-400 w-5"></i> Innovation & Emerging Tech</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
         <section id="summary" class="mb-20">
             <h2 class="text-xl font-black text-gray-900 section-heading uppercase tracking-wider">Professional Summary</h2>
             <p class="text-lg leading-relaxed text-gray-700">
                 Strategic Senior Business Consultant and Conversational AI Architect with **23 years of evolution at TELUS**. 
                 Specialized in transforming customer experiences through data-driven AI solutions, shifting from intuition-based design to empirical, conversation-led learning. 
+                Expert in **Dialogflow CX** and **Genesys Designer**, with a proven track record of delivering multi-million dollar savings through complex automation and optimized customer journeys.
             </p>
         </section>
-        </main>
+
+        <section id="skills" class="mb-20">
+            <h2 class="text-xl font-black text-gray-900 section-heading uppercase tracking-wider">Core Competencies & Skills</h2>
+            <div class="grid md:grid-cols-2 gap-x-12 gap-y-8 mb-12">
+                <div>
+                    <h3 class="font-black text-sm uppercase tracking-widest text-gray-400 mb-6 flex items-center gap-2">
+                        <i class="fas fa-star text-[10px]"></i> Primary Expertise
+                    </h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-tag">Artificial Intelligence</span>
+                        <span class="skill-tag">Business Analysis</span>
+                        <span class="skill-tag">Customer Experience</span>
+                        <span class="skill-tag">Auditing</span>
+                        <span class="skill-tag">Pattern Recognition</span>
+                        <span class="skill-tag">Data Visualization</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-black text-sm uppercase tracking-widest text-gray-400 mb-6 flex items-center gap-2">
+                        <i class="fas fa-briefcase text-[10px]"></i> Strategic & Technical
+                    </h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-tag">Project Management</span>
+                        <span class="skill-tag">Agile Methodology</span>
+                        <span class="skill-tag">Stakeholder Relations</span>
+                        <span class="skill-tag">Coaching</span>
+                        <span class="skill-tag">Technical Support</span>
+                        <span class="skill-tag">Python (Beginner)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="mb-20">
+            <h2 class="text-xl font-black text-gray-900 section-heading uppercase tracking-wider">Professional Experience</h2>
+            <div class="space-y-16">
+                <div class="group">
+                    <div class="flex flex-wrap justify-between items-baseline mb-2">
+                        <h3 class="text-2xl font-bold text-black">Business Consultant | Conversational AI Architect</h3>
+                        <span class="text-gray-500 font-bold text-sm tracking-tighter uppercase">Jan 2023 – Present</span>
+                    </div>
+                    <p class="text-gray-900 font-bold mb-6 text-sm flex items-center gap-2">
+                        <span class="w-2 h-2 bg-black rounded-full"></span> TELUS (Montreal, QC)
+                    </p>
+                    <ul class="space-y-4 text-gray-700 border-l border-gray-200 pl-6">
+                        <li class="flex gap-2 leading-relaxed"><strong>2025 Project Delivery:</strong> Managed 29 enterprise-scale AI projects, delivering $2,000,000 in operational savings.</li>
+                        <li class="flex gap-2 leading-relaxed"><strong>Voice Bot Optimization:</strong> Reduced live-agent transfer rates from 12% to 6% via iterative tuning.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="mb-20">
+            <h2 class="text-xl font-black text-gray-900 section-heading uppercase tracking-wider">Education</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="p-8 border border-gray-200 hover:border-black transition-colors">
+                    <h3 class="font-bold text-lg">AEC - Networking Specialization</h3>
+                    <p class="text-gray-600 mb-2">LaSalle College, Montreal, QC</p>
+                </div>
+                <div class="p-8 border border-gray-200 hover:border-black transition-colors">
+                    <h3 class="font-bold text-lg">DEC - Computer Science</h3>
+                    <p class="text-gray-600 mb-2">Collège de Rosemont, Montreal, QC</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <footer class="bg-white border-t border-gray-200 py-12 text-center">
         <div class="container mx-auto px-6">
@@ -74,7 +161,6 @@
           );
         });
     </script>
-
     <chat-messenger url-allowlist="*">
       <chat-messenger-container
         chat-title="boboflow"
