@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boris Vargas | Conversational AI Architect & Business Consultant</title>
     <meta name="description" content="Professional portfolio of Boris Vargas, a Strategic Senior Business Consultant and Conversational AI Architect with 23 years of experience at TELUS.">
+    
+    <script defer src="https://www.gstatic.com/ces-console/fast/chat-messenger/prod/v1.15/chat-messenger.js"></script>
+    <link rel="stylesheet" href="https://www.gstatic.com/ces-console/fast/chat-messenger/prod/v1.15/themes/chat-messenger-default.css">
+    <link rel="stylesheet" href="https://www.gstatic.com/ces-console/fast/chat-messenger/prod/v1.15/themes/chat-messenger-layout.css">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -18,7 +23,6 @@
 </head>
 <body class="bg-white text-gray-900">
 
-    <!-- Header / Navigation (Privacy-Focused Monochrome) -->
     <header class="bg-white text-gray-900 py-16 border-b border-gray-200">
         <div class="container mx-auto px-6 text-center">
             <h1 class="text-4xl md:text-5xl font-extrabold mb-3 tracking-tight">BORIS VARGAS</h1>
@@ -40,7 +44,6 @@
 
     <main class="container mx-auto px-6 py-16 max-w-5xl">
         
-        <!-- About Me Section -->
         <section id="about" class="mb-20">
             <h2 class="text-xl font-black text-gray-900 section-heading uppercase tracking-wider">About Me</h2>
             <div class="grid md:grid-cols-3 gap-10 items-start">
@@ -64,7 +67,6 @@
             </div>
         </section>
 
-        <!-- Professional Summary -->
         <section id="summary" class="mb-20">
             <h2 class="text-xl font-black text-gray-900 section-heading uppercase tracking-wider">Professional Summary</h2>
             <p class="text-lg leading-relaxed text-gray-700">
@@ -74,7 +76,6 @@
             </p>
         </section>
 
-        <!-- Core Competencies & Skills -->
         <section id="skills" class="mb-20">
             <h2 class="text-xl font-black text-gray-900 section-heading uppercase tracking-wider">Core Competencies & Skills</h2>
             
@@ -135,12 +136,10 @@
             </div>
         </section>
 
-        <!-- Experience -->
         <section id="experience" class="mb-20">
             <h2 class="text-xl font-black text-gray-900 section-heading uppercase tracking-wider">Professional Experience</h2>
             
             <div class="space-y-16">
-                <!-- Current Role -->
                 <div class="group">
                     <div class="flex flex-wrap justify-between items-baseline mb-2">
                         <h3 class="text-2xl font-bold text-black">Business Consultant | Conversational AI Architect</h3>
@@ -157,7 +156,6 @@
                     </ul>
                 </div>
 
-                <!-- Senior BA -->
                 <div class="group">
                     <div class="flex flex-wrap justify-between items-baseline mb-2">
                         <h3 class="text-2xl font-bold text-black">Senior Business Analyst</h3>
@@ -172,7 +170,6 @@
                     </ul>
                 </div>
 
-                <!-- Legacy Roles -->
                 <div class="group">
                     <div class="flex flex-wrap justify-between items-baseline mb-2">
                         <h3 class="text-xl font-bold text-black">Evolutionary Tenure at TELUS</h3>
@@ -186,7 +183,6 @@
             </div>
         </section>
 
-        <!-- Education -->
         <section id="education" class="mb-20">
             <h2 class="text-xl font-black text-gray-900 section-heading uppercase tracking-wider">Education</h2>
             <div class="grid md:grid-cols-2 gap-8">
@@ -213,6 +209,28 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        window.addEventListener("chat-messenger-loaded", () => {
+          chatSdk.registerContext(
+            chatSdk.prebuilts.ces.createContext({
+              deploymentName: "projects/730951009616/locations/us/apps/289527ad-0288-4f2e-928c-523e60830fc2/deployments/7f273259-18f0-44b5-baad-da4098135f6e"
+            }),
+          );
+        });
+    </script>
+    <chat-messenger url-allowlist="*">
+      <chat-messenger-container
+        chat-title="boboflow"
+        chat-title-icon="https://gstatic.com/dialogflow-console/common/assets/ccai-favicons/conversational_agents.png"
+        enable-file-upload
+        enable-audio-input
+      >
+        <chat-reset-session-button slot="titlebar-actions" title-text="Start new chat"></chat-reset-session-button>
+        <chat-toggle-dialog-button slot="titlebar-actions" title-text-expanded="Collapse" title-text-collapsed="Expand"></chat-toggle-dialog-button>
+        <chat-messenger-close-button slot="titlebar-actions" title-text="Close"></chat-messenger-close-button>
+      </chat-messenger-container>
+    </chat-messenger>
 
 </body>
 </html>
