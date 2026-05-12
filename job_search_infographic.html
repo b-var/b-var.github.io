@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #0a0a0f;
+    color: #e8e6f0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 48px 24px 24px;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #c9a84c;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 5vw, 46px);
+    line-height: 1.1;
+    color: #f5f2ea;
+    margin-bottom: 10px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: #c9a84c;
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    color: #9998aa;
+    font-weight: 300;
+    max-width: 520px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+  /* === FLOW CONTAINER === */
+  .flow {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+    position: relative;
+  }
+
+  /* Flowing dotted spine */
+  .spine {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    transform: translateX(-50%);
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .spine::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 6px,
+      #c9a84c44 6px,
+      #c9a84c44 14px
+    );
+    animation: flowDown 1.6s linear infinite;
+  }
+
+  @keyframes flowDown {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(20px); }
+  }
+
+  /* === PHASE BLOCKS === */
+  .phase {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(135deg, #1a1825 0%, #12111a 100%);
+    border: 0.5px solid #2e2b3e;
+    border-left: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 14px 20px;
+    width: 100%;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s;
+    user-select: none;
+  }
+
+  .phase-header:hover {
+    background: linear-gradient(135deg, #1f1d2e 0%, #171522 100%);
+  }
+
+  .phase-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #0a0a0f;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'DM Serif Display', serif;
+  }
+
+  .phase-title-wrap { flex: 1; }
+
+  .phase-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  .phase-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: #f5f2ea;
+    line-height: 1.2;
+  }
+
+  .phase-chevron {
+    font-size: 16px;
+    color: #5a5870;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .phase.open .phase-chevron {
+    transform: rotate(180deg);
+  }
+
+  .phase-body {
+    width: calc(100% - 20px);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
+    opacity: 0;
+  }
+
+  .phase.open .phase-body {
+    max-height: 900px;
+    opacity: 1;
+  }
+
+  .phase-inner {
+    padding: 6px 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Item cards */
+  .item {
+    background: #0f0e17;
+    border: 0.5px solid #1e1c2e;
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+    align-items: start;
+    transition: border-color 0.2s;
+  }
+
+  .item:hover {
+    border-color: #3a3750;
+  }
+
+  .item-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--accent-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .item-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #dddbe8;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .item-detail {
+    font-size: 12px;
+    color: #7876899a;
+    line-height: 1.55;
+  }
+
+  .item-detail strong {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .badge-new {
+    background: #c9a84c22;
+    color: #c9a84c;
+    border: 0.5px solid #c9a84c44;
+  }
+
+  .badge-hot {
+    background: #e05c4222;
+    color: #e07c62;
+    border: 0.5px solid #e05c4244;
+  }
+
+  /* Connector node (circle on spine) */
+  .connector {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid #0a0a0f;
+    margin: 6px 0;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 10px var(--accent-glow);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 6px var(--accent-glow); }
+    50% { box-shadow: 0 0 16px var(--accent-glow), 0 0 24px var(--accent-glow); }
+  }
+
+  /* Branching connectors on sides */
+  .branch-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    position: relative;
+    justify-content: center;
+    margin: 2px 0;
+  }
+
+  .branch-line {
+    flex: 1;
+    height: 1px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .branch-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      to right,
+      transparent 0px,
+      transparent 4px,
+      var(--accent) 4px,
+      var(--accent) 10px
+    );
+    animation: flowRight 1s linear infinite;
+    opacity: 0.4;
+  }
+
+  .branch-line.left::after {
+    animation: flowLeft 1s linear infinite;
+    right: 0;
+    left: auto;
+  }
+
+  @keyframes flowRight {
+    0% { transform: translateX(-14px); }
+    100% { transform: translateX(0); }
+  }
+
+  @keyframes flowLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-14px); }
+  }
+
+  /* PRO TIP */
+  .pro-tip {
+    max-width: 760px;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .pro-tip-inner {
+    background: linear-gradient(135deg, #1c1810 0%, #14120e 100%);
+    border: 0.5px solid #c9a84c55;
+    border-radius: 14px;
+    padding: 20px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pro-tip-inner::before {
+    content: '★';
+    position: absolute;
+    right: 20px;
+    top: 16px;
+    font-size: 48px;
+    color: #c9a84c0a;
+    font-family: 'DM Serif Display', serif;
+  }
+
+  .pro-tip-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #c9a84c;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .pro-tip-text {
+    font-size: 13px;
+    color: #c8c4d4;
+    line-height: 1.65;
+  }
+
+  .pro-tip-text strong {
+    color: #e8c76a;
+    font-weight: 500;
+  }
+
+  /* Stat bar */
+  .stats-row {
+    max-width: 760px;
+    margin: 0 auto 32px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .stat-card {
+    background: #0f0e17;
+    border: 0.5px solid #1e1c2e;
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: #c9a84c;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: #6a6880;
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+  }
+
+  /* Phase color vars */
+  .p1 { --accent: #7c85f5; --accent-dim: #7c85f511; --accent-glow: #7c85f555; }
+  .p2 { --accent: #5bbfa4; --accent-dim: #5bbfa411; --accent-glow: #5bbfa455; }
+  .p3 { --accent: #e07c62; --accent-dim: #e07c6211; --accent-glow: #e07c6255; }
+  .p4 { --accent: #c9a84c; --accent-dim: #c9a84c11; --accent-glow: #c9a84c55; }
+  .p5 { --accent: #b07cf5; --accent-dim: #b07cf511; --accent-glow: #b07cf555; }
+  .p6 { --accent: #5b9fe0; --accent-dim: #5b9fe011; --accent-glow: #5b9fe055; }
+
+  /* Instruction hint */
+  .hint {
+    text-align: center;
+    font-size: 12px;
+    color: #4a4860;
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+  }
+
+  .footer-note {
+    text-align: center;
+    font-size: 11px;
+    color: #3a3850;
+    padding: 0 20px 32px;
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-eyebrow">The Headhunter's Complete Playbook · 2026 Edition</div>
+  <h1>Land the Job <em>Before</em><br>You Apply</h1>
+  <p class="hero-sub">Most candidates fight at the application stage. Elite candidates have already won before the posting goes live. Here's how.</p>
+</div>
+
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-num">80%</div>
+    <div class="stat-label">of jobs filled via the hidden market</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">7 sec</div>
+    <div class="stat-label">avg recruiter glance at a resume</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">10×</div>
+    <div class="stat-label">more likely hired with a referral</div>
+  </div>
+</div>
+
+<p class="hint">↓ tap each phase to expand</p>
+
+<div class="flow">
+  <div class="spine"></div>
+
+  <!-- PHASE 1 -->
+  <div class="phase p1 open" id="p1">
+    <div class="phase-header" onclick="toggle('p1')">
+      <div class="phase-num">1</div>
+      <div class="phase-title-wrap">
+        <div class="phase-label">Foundation</div>
+        <div class="phase-title">Strategy & Identity</div>
+      </div>
+      <div class="phase-chevron">▾</div>
+    </div>
+    <div class="phase-body">
+      <div class="phase-inner">
+        <div class="item p1">
+          <div class="item-icon">🎯</div>
+          <div>
+            <div class="item-name">The "Target 20" Company List</div>
+            <div class="item-detail">Research 20 companies by culture, recent news, and <strong>pain points</strong> — not just job openings. Use LinkedIn, Glassdoor, and earnings calls. The goal: walk in knowing their problems before they tell you.</div>
+          </div>
+        </div>
+        <div class="item p1">
+          <div class="item-icon">🔑</div>
+          <div>
+            <div class="item-name">Extract 10 Power Keywords</div>
+            <div class="item-detail">Analyze 5 target job descriptions. Pull the <strong>repeating technical and soft skills</strong>. These exact phrases must appear in your resume, LinkedIn headline, and summary — verbatim for ATS.</div>
+          </div>
+        </div>
+        <div class="item p1">
+          <div class="item-icon">🔍</div>
+          <div>
+            <div class="item-name">Digital Footprint Audit <span class="badge badge-new">New</span></div>
+            <div class="item-detail">Google yourself. What does a recruiter see? <strong>Clean up old social posts</strong>, ensure your GitHub/portfolio is current, and lock privacy on personal accounts. You're a brand — audit it quarterly.</div>
+          </div>
+        </div>
+        <div class="item p1">
+          <div class="item-icon">💡</div>
+          <div>
+            <div class="item-name">LinkedIn as a Sales Page</div>
+            <div class="item-detail">Your headline = your value proposition, not your job title. Example: <strong>"Turning messy data pipelines into revenue clarity · Data Eng @ Scale"</strong>. Set "Open to Work" visible to recruiters only if employed.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="branch-row p1"><div class="branch-line left"></div><div class="connector p1"></div><div class="branch-line"></div></div>
+
+  <!-- PHASE 2 -->
+  <div class="phase p2" id="p2">
+    <div class="phase-header" onclick="toggle('p2')">
+      <div class="phase-num">2</div>
+      <div class="phase-title-wrap">
+        <div class="phase-label">Storytelling</div>
+        <div class="phase-title">Your Story Bank</div>
+      </div>
+      <div class="phase-chevron">▾</div>
+    </div>
+    <div class="phase-body">
+      <div class="phase-inner">
+        <div class="item p2">
+          <div class="item-icon">📖</div>
+          <div>
+            <div class="item-name">The STAR Matrix — 10 Stories Minimum</div>
+            <div class="item-detail">Write 10 stories: <strong>Situation → Task → Action → Result</strong>. Map to: conflict resolution, failure + lesson, major win, leading without authority, cross-functional collaboration, tight deadline, data-driven decision, customer rescue, mentorship, and one wildcard.</div>
+          </div>
+        </div>
+        <div class="item p2">
+          <div class="item-icon">📊</div>
+          <div>
+            <div class="item-name">Quantify Everything — No Fuzzy Language</div>
+            <div class="item-detail">Every story needs a number. <strong>"Reduced processing time by 40%"</strong> beats "improved efficiency." Use: percentages, dollar impact, time saved, team size, user count, revenue influenced. No number? Find a proxy metric.</div>
+          </div>
+        </div>
+        <div class="item p2">
+          <div class="item-icon">🗂️</div>
+          <div>
+            <div class="item-name">The Living "Brag File" <span class="badge badge-new">New</span></div>
+            <div class="item-detail">Maintain a private running doc of wins, praise emails, metrics, and completed projects — <strong>updated monthly</strong>. This fuels your STAR stories, resume bullets, and performance reviews. Never scramble for examples again.</div>
+          </div>
+        </div>
+        <div class="item p2">
+          <div class="item-icon">🪞</div>
+          <div>
+            <div class="item-name">The "So What?" Mirror Test <span class="badge badge-new">New</span></div>
+            <div class="item-detail">Read every resume bullet aloud. Ask: <strong>"So what? Why does this matter?"</strong> If you can't answer in one sentence, rewrite it. Bullets must connect your action to a business outcome, not just describe a task.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="branch-row p2"><div class="branch-line left"></div><div class="connector p2"></div><div class="branch-line"></div></div>
+
+  <!-- PHASE 3 -->
+  <div class="phase p3" id="p3">
+    <div class="phase-header" onclick="toggle('p3')">
+      <div class="phase-num">3</div>
+      <div class="phase-title-wrap">
+        <div class="phase-label">Documents</div>
+        <div class="phase-title">Resume & Portfolio Arsenal</div>
+      </div>
+      <div class="phase-chevron">▾</div>
+    </div>
+    <div class="phase-body">
+      <div class="phase-inner">
+        <div class="item p3">
+          <div class="item-icon">📄</div>
+          <div>
+            <div class="item-name">Master Resume → Targeted Resume System</div>
+            <div class="item-detail">Keep a master doc with everything. For each application, <strong>"Save As"</strong> and cut to only what matches that JD. ATS rewards relevance density, not length. Target: 85%+ keyword match on key skills.</div>
+          </div>
+        </div>
+        <div class="item p3">
+          <div class="item-icon">🌐</div>
+          <div>
+            <div class="item-name">Portfolio / GitHub / Personal Site</div>
+            <div class="item-detail">For technical or creative roles, a live portfolio <strong>proves</strong> what a resume claims. One clean project with a README is more powerful than five bullet points. It also signals initiative and craft.</div>
+          </div>
+        </div>
+        <div class="item p3">
+          <div class="item-icon">💰</div>
+          <div>
+            <div class="item-name">Know Your Number — Compensation Research <span class="badge badge-hot">Critical</span></div>
+            <div class="item-detail">Before any conversation: research via Levels.fyi, Glassdoor, LinkedIn Salary, and Blind. Know your <strong>target, acceptable floor, and walk-away number</strong>. Never be the first to anchor without data. Silence is power.</div>
+          </div>
+        </div>
+        <div class="item p3">
+          <div class="item-icon">👥</div>
+          <div>
+            <div class="item-name">Reference Pre-Check — Warm Them Now</div>
+            <div class="item-detail">Contact 3 references <strong>before</strong> you need them. Brief them on the roles you're targeting so they can tailor their praise. A surprised reference gives a generic one. A prepped reference gives a specific, compelling one.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="branch-row p3"><div class="branch-line left"></div><div class="connector p3"></div><div class="branch-line"></div></div>
+
+  <!-- PHASE 4 -->
+  <div class="phase p4" id="p4">
+    <div class="phase-header" onclick="toggle('p4')">
+      <div class="phase-num">4</div>
+      <div class="phase-title-wrap">
+        <div class="phase-label">Network Intelligence</div>
+        <div class="phase-title">Access the Hidden Market</div>
+      </div>
+      <div class="phase-chevron">▾</div>
+    </div>
+    <div class="phase-body">
+      <div class="phase-inner">
+        <div class="item p4">
+          <div class="item-icon">🕵️</div>
+          <div>
+            <div class="item-name">Identify the Actual Hiring Manager <span class="badge badge-hot">Critical</span></div>
+            <div class="item-detail">Don't just apply — find the person you'd <strong>report to</strong> on LinkedIn. Follow them. Engage genuinely with their content for 2–3 weeks before outreach. Warm ≠ cold. A name-drop in your cover letter changes everything.</div>
+          </div>
+        </div>
+        <div class="item p4">
+          <div class="item-icon">☕</div>
+          <div>
+            <div class="item-name">Network Activation, Not Cold Outreach</div>
+            <div class="item-detail">Instead of cold "coffee chat" requests, lead with <strong>value</strong>: share a relevant article, comment with insight, or ask a specific question on their post. Requests that give first convert at 3–5× higher rates.</div>
+          </div>
+        </div>
+        <div class="item p4">
+          <div class="item-icon">🔗</div>
+          <div>
+            <div class="item-name">Internal Referral Strategy <span class="badge badge-new">New</span></div>
+            <div class="item-detail">A referred candidate is <strong>10× more likely to be hired</strong>. Before applying, check if any 1st or 2nd-degree connection works there. A simple "Would you be comfortable referring me?" message can unlock the whole process.</div>
+          </div>
+        </div>
+        <div class="item p4">
+          <div class="item-icon">📅</div>
+          <div>
+            <div class="item-name">The 30-60-90 Day Plan</div>
+            <div class="item-detail">Draft a rough outline of your <strong>first 3 months</strong> in the role. Listen, learn, quick wins, then strategic impact. Mentioning this in interviews signals you're already thinking like an employee — not a candidate hoping to get lucky.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="branch-row p4"><div class="branch-line left"></div><div class="connector p4"></div><div class="branch-line"></div></div>
+
+  <!-- PHASE 5 -->
+  <div class="phase p5" id="p5">
+    <div class="phase-header" onclick="toggle('p5')">
+      <div class="phase-num">5</div>
+      <div class="phase-title-wrap">
+        <div class="phase-label">Interview Readiness</div>
+        <div class="phase-title">Own the Room (or the Screen)</div>
+      </div>
+      <div class="phase-chevron">▾</div>
+    </div>
+    <div class="phase-body">
+      <div class="phase-inner">
+        <div class="item p5">
+          <div class="item-icon">❓</div>
+          <div>
+            <div class="item-name">5–7 Reverse Interview Questions</div>
+            <div class="item-detail">Bad: <em>"What are the benefits?"</em> — Good: <strong>"How does the team measure success in the first 90 days?"</strong> or <strong>"Where has this role struggled historically, and why?"</strong> Great questions signal strategic thinking.</div>
+          </div>
+        </div>
+        <div class="item p5">
+          <div class="item-icon">🎥</div>
+          <div>
+            <div class="item-name">Remote Setup Audit</div>
+            <div class="item-detail"><strong>Light in front</strong> of you, not behind. Eye-level camera. Clean or blurred background. USB or condenser mic — laptop mics sound desperate. Test 10 minutes before every interview, not the morning of.</div>
+          </div>
+        </div>
+        <div class="item p5">
+          <div class="item-icon">🧠</div>
+          <div>
+            <div class="item-name">Emotional & Mindset Prep <span class="badge badge-new">New</span></div>
+            <div class="item-detail">Recruiters are trained to detect anxiety and desperation — both repel offers. <strong>Practice your stories aloud</strong> until they feel conversational, not rehearsed. Confidence isn't arrogance; it's preparation wearing a calm face.</div>
+          </div>
+        </div>
+        <div class="item p5">
+          <div class="item-icon">📝</div>
+          <div>
+            <div class="item-name">The 24-Hour Follow-Up System <span class="badge badge-new">New</span></div>
+            <div class="item-detail">Send a <strong>specific, personalized thank-you</strong> within 24 hours — not "Thanks for your time." Reference one thing discussed, reaffirm your fit, and add a thought you didn't get to share. This alone separates 80% of candidates.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="branch-row p5"><div class="branch-line left"></div><div class="connector p5"></div><div class="branch-line"></div></div>
+
+  <!-- PHASE 6 -->
+  <div class="phase p6" id="p6">
+    <div class="phase-header" onclick="toggle('p6')">
+      <div class="phase-num">6</div>
+      <div class="phase-title-wrap">
+        <div class="phase-label">Offer Stage</div>
+        <div class="phase-title">Negotiate — Don't Just Accept</div>
+      </div>
+      <div class="phase-chevron">▾</div>
+    </div>
+    <div class="phase-body">
+      <div class="phase-inner">
+        <div class="item p6">
+          <div class="item-icon">⚖️</div>
+          <div>
+            <div class="item-name">Never Accept on the Spot <span class="badge badge-hot">Critical</span></div>
+            <div class="item-detail">Always ask for 24–48 hours to review. <strong>Every offer is a starting point</strong>, not a final number. Saying "I'm very excited — can I have a day to review the full package?" has never cost anyone an offer. Silence after an offer is leverage.</div>
+          </div>
+        </div>
+        <div class="item p6">
+          <div class="item-icon">📋</div>
+          <div>
+            <div class="item-name">Negotiate the Full Package</div>
+            <div class="item-detail">Base is just one lever. Push on: <strong>signing bonus, remote flexibility, equity vesting cliff, title, start date, and professional development budget</strong>. Companies often have more flexibility here than on base when HR has budget constraints.</div>
+          </div>
+        </div>
+        <div class="item p6">
+          <div class="item-icon">🤝</div>
+          <div>
+            <div class="item-name">Keep All Pipelines Active Until Signed <span class="badge badge-new">New</span></div>
+            <div class="item-detail">Never pause your search based on a verbal offer. <strong>Until the written, signed offer is in your hand</strong>, treat every other opportunity as still live. Competing offers — even implied ones — are the single most powerful negotiation tool you have.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="pro-tip">
+  <div class="pro-tip-inner">
+    <div class="pro-tip-label">★ Headhunter's Insider Edge</div>
+    <div class="pro-tip-text">
+      The candidates I place fastest aren't the most qualified — they're the most <strong>visible before the role opens</strong>. Build your presence on LinkedIn <em>now</em>: post one insight per week in your domain, engage with hiring managers at your Target 20 companies, and treat every DM as a long-term relationship, not a transaction. The best job offers arrive as conversations, not applications.
+    </div>
+  </div>
+</div>
+
+<div class="footer-note">Tap any phase to expand · New additions marked · Built for the 2026 job market</div>
+
+<script>
+function toggle(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>
