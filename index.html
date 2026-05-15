@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VARGASKEO | Digital Experience Consultant</title>
+    
+    <!-- Tailwind CSS for Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX compilation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .selection-indigo::selection { background: #4f46e5; color: white; }
+    </style>
+</head>
+<body class="selection-indigo">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Custom SVG Icon Components (Lucide replacements for HTML single-file compatibility)
+        const Icon = ({ name, size = 18, className = "" }) => {
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [name]);
+            return <i data-lucide={name} className={className} style={{ width: size, height: size }}></i>;
+        };
+
+        const BrandLogo = ({ className = "w-12 h-12" }) => (
+            <div className={`relative flex items-center justify-center ${className}`}>
+                <svg viewBox="0 0 100 100" className="w-full h-full">
+                    <defs>
+                        <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#4f46e5" />
+                            <stop offset="100%" stopColor="#06b6d4" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M20 20 L50 85 L80 20" fill="none" stroke="url(#logoGrad)" strokeWidth="12" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M35 20 L50 55 L65 20" fill="none" stroke="url(#logoGrad)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" className="opacity-50"/>
+                </svg>
+            </div>
+        );
+
+        const App = () => {
+            const [currentPage, setCurrentPage] = useState('home');
+            const [lang, setLang] = useState('fr');
+            const [formStatus, setFormStatus] = useState('idle');
+
+            const content = {
+                en: {
+                    nav: { contact: "Contact", about: "About", insights: "Insights" },
+                    home: { subtitle: "Decoding Complexity | Optimizing Interaction", consultant: "Digital Experience Consultant", ai: "Conversational AI Specialist", est: "EST. 2021" },
+                    contact: { title: "Get in Touch", subtitle: "Inquire about a digital audit or conversational AI strategy.", name: "Full Name", email: "Email Address", message: "How can I help?", send: "Send Message", success: "Message Sent!", successDesc: "Thank you. I will review your request and get back to you shortly.", back: "Back to Home" },
+                    resume: { back: "Close Portal", title: "About Vargaskeo", location: "Montreal, Quebec, Canada", role: "Digital Experience Strategist", exp: "22+ Years Industry Experience", summaryTitle: "Executive Summary", summary: "Strategic consultant with over two decades of experience in the telecommunications sector. Expert in auditing digital customer journeys, self-serve portals, and conversational AI (Voice/Chatbots).", expTitle: "Professional Experience", consultingTitle: "Vargaskeo Consulting", consultingRole: "Self-Employed Consultant", audit: "Experience Audits: Conducting high-fidelity reviews of self-serve platforms.", aiOpt: "AI Ecosystem Optimization: Evaluating Voice and Chatbot logic.", roadmap: "Strategic Roadmap Advisory: Bridging technical gaps.", telusRole: "Senior Business Analyst & Multi-Line Operations", telusPoints: ["Cross-Functional Expertise: Mobility and Home Solutions.", "Self-Serve Strategy: Led requirements for large-scale digital tools.", "Stakeholder Synergy: Alignment between dev teams and business owners.", "Data-Driven Insights: Two decades of user journey optimization."], stackTitle: "Expertise Stack", advisory: "Advisory Services", advisoryDesc: "Leveraging two decades of telco experience to master your digital touchpoints.", request: "Request a Review" },
+                    articles: { title: "Strategic Insights", subtitle: "Analysis of technology, efficiency, and market disruption.", readMore: "Read Full Audit", backToArchive: "All Insights", 
+                        hilo: { tag: "Energy Optimization", title: "The Hilo Ecosystem: A Strategic Deep Dive into Quebec's Smart Grid", seoTitle: "Smart Home Quebec: Optimize Your Electricity Bill with Hilo", readTime: "12 Min Read", h2_1: "Operational Pros: Why Hilo is the Leading Smart Home Quebec Solution", p_1: "The primary strength of Hilo lies in its seamless integration. Unlike fragmented DIY smart home setups, Hilo provides a unified Zigbee-based ecosystem. For the homeowner, the 'pro' is clear: automated climate synchronization. By pre-heating the thermal mass of a home before a peak event, Hilo ensures comfort remains high while demand on the grid drops.", h2_2: "Strategic Benefits: How to Save Money on Electricity Long-Term", p_2: "Beyond the technology, the financial model of Hilo is its most disruptive feature. The 'Challenges' system incentivizes users through direct cash-back rewards. My audit shows real value is in the 'Set and Forget' nature—significant annual returns that often pay for the equipment within 2-3 seasons.", offerTitle: "Onboarding Note", offerDesc: "If you decide to transition to Hilo, using a referral link can provide a $25 credit toward your installation costs.", offerButton: "View Onboarding Options", verdictTitle: "Strategic Verdict", verdictDesc: "For Quebec residents looking to modernize their home while contributing to grid stability, Hilo is the most polished energy ecosystem available." },
+                        fizz: { tag: "Telecom Disruption", title: "The Fizz Model: Analyzing the 100% Digital Telecom Experience", seoTitle: "Best Cheap Mobile Plans and Internet Services Montreal", readTime: "10 Min Read", h2_1: "Network Advantages: High-Speed Internet and Mobile Reliability", p_1: "The biggest 'pro' of switching to Fizz is the underlying infrastructure. Fizz operates on Videotron’s robust LTE and Fiber-Backbone networks. Users get Tier-1 performance with Tier-3 pricing, perfect for remote professionals in the Montreal market.", h2_2: "Data Management: Why Data Rollover is a Market Leader", p_2: "In my analysis of telecom service design, the Fizz 'Data Rollover' feature remains the gold standard. Unused data doesn't vanish; it carries over for two months. This creates a community-driven ecosystem that reduces the churn common in the industry.", offerTitle: "Referral Note", offerDesc: "New members can receive a $25 activation bonus by applying a referral code during their first plan signup.", referralCode: "UJJMN", offerButton: "Explore Fizz Plans", verdictTitle: "Strategic Verdict", verdictDesc: "Fizz is the ideal choice for the digitally-literate consumer who values high-speed performance and flexibility." }
+                    }
+                },
+                fr: {
+                    nav: { contact: "Contact", about: "À Propos", insights: "Perspectives" },
+                    home: { subtitle: "Décoder la complexité | Optimiser l'interaction", consultant: "Consultant en expérience numérique", ai: "Spécialiste en IA conversationnelle", est: "DEPUIS 2021" },
+                    contact: { title: "Contactez-moi", subtitle: "Informez-vous sur un audit numérique ou une stratégie d'IA.", name: "Nom complet", email: "Adresse courriel", message: "Comment puis-je aider?", send: "Envoyer le message", success: "Message Envoyé!", successDesc: "Merci. Je vais examiner votre demande et vous répondrai sous peu.", back: "Retour à l'accueil" },
+                    resume: { back: "Fermer le portail", title: "À Propos de Vargaskeo", location: "Montréal, Québec, Canada", role: "Stratège en expérience numérique", exp: "Plus de 22 ans d'expérience", summaryTitle: "Sommaire exécutif", summary: "Consultant stratégique avec plus de deux décennies d'expérience en télécommunications. Expert en audit des parcours clients numériques et de l'intelligence artificielle conversationnelle.", expTitle: "Parcours professionnel", consultingTitle: "Vargaskeo Conseil", consultingRole: "Consultant indépendant", audit: "Audits d'expérience : Revues de haute fidélité des plateformes numériques.", aiOpt: "Optimisation de l'IA : Évaluation de la logique vocale et des agents conversationnels.", roadmap: "Conseil stratégique : Combler les lacunes techniques par des solutions d'affaires.", telusRole: "Analyste d'affaires principal et Opérations multi-secteurs", telusPoints: ["Expertise multi-sectorielle : Mobilité et solutions résidentielles.", "Stratégie libre-service : Analyse d'affaires pour des outils numériques d'envergure.", "Synergie : Alignement entre les équipes techniques et les propriétaires d'affaires.", "Analytique : Analyse des données de parcours pour réduire la friction."], stackTitle: "Compétences clés", advisory: "Services-conseils", advisoryDesc: "Mettre à profit deux décennies d'expérience pour maîtriser vos points de contact.", request: "Demander une revue" },
+                    articles: { title: "Analyses Stratégiques", subtitle: "Analyses sur la technologie, l'efficacité et les perturbations du marché.", readMore: "Lire l'audit complet", backToArchive: "Toutes les perspectives",
+                        hilo: { tag: "Optimisation Énergétique", title: "L'écosystème Hilo : Analyse approfondie du réseau intelligent québécois", seoTitle: "Maison Intelligente Québec : Économiser avec Hilo", readTime: "12 Min de lecture", h2_1: "Avantages opérationnels : Pourquoi Hilo domine le marché québécois", p_1: "La force d'Hilo réside dans son intégration. Contrairement aux solutions fragmentées, Hilo propose un écosystème Zigbee unifié. L'avantage est clair : la synchronisation climatique automatisée. En préchauffant la masse thermique avant une pointe, Hilo assure le confort tout en réduisant la charge sur le réseau.", h2_2: "Bénéfices stratégiques : Comment optimiser sa facture d'électricité", p_2: "Au-delà de la technologie, le modèle financier est disruptif. Les 'Défis' récompensent les usagers par des remises en argent. Une fois configuré, le système gère les périodes de pointe pour vous, offrant un rendement annuel significatif qui rentabilise l'équipement rapidement.", offerTitle: "Note sur l'adhésion", offerDesc: "Si vous décidez de passer à Hilo, l'utilisation d'un lien de référence peut offrir un crédit de 25 $ sur vos frais d'installation.", offerButton: "Consulter les options", verdictTitle: "Verdict Stratégique", verdictDesc: "Pour les résidents du Québec souhaitant moderniser leur domicile tout en contribuant à la stabilité du réseau, Hilo est l'écosystème le plus abouti et rentable." },
+                        fizz: { tag: "Perturbation Télécom", title: "Le modèle Fizz : Analyse de l'expérience télécom 100% numérique", seoTitle: "Meilleurs forfaits mobiles pas chers Montréal", readTime: "10 Min de lecture", h2_1: "Avantages réseau : Internet haute vitesse et fiabilité mobile", p_1: "Le principal avantage de Fizz est son infrastructure. Fizz utilise les réseaux LTE et fibre de Vidéotron. Les usagers bénéficient de la performance d'un grand fournisseur à prix réduit, un atout majeur pour les professionnels en télétravail.", h2_2: "Gestion des données : Pourquoi le transfert de données est un leader", p_2: "Le transfert de données reste la référence de l'industrie. Les Go inutilisés sont reportés sur deux mois. Jumelé à la possibilité de 'donner' des données à d'autres membres, cela crée un écosystème communautaire unique.", offerTitle: "Note de référence", offerDesc: "Les nouveaux membres peuvent recevoir un bonus d'activation de 25 $ en utilisant un code de référence lors de leur inscription.", referralCode: "UJJMN", offerButton: "Découvrir les forfaits Fizz", verdictTitle: "Verdict Stratégique", verdictDesc: "Fizz est le choix idéal pour le consommateur numérique qui privilégie la performance et la flexibilité." }
+                    }
+                }
+            };
+
+            const t = content[lang];
+
+            const Navbar = () => (
+                <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 h-16 flex items-center">
+                    <div className="max-w-6xl mx-auto px-6 w-full flex items-center justify-between">
+                        <div className="flex items-center gap-3 cursor-pointer" onClick={() => setCurrentPage('home')}>
+                            <BrandLogo className="w-8 h-8" />
+                            <span className="text-slate-900 font-black tracking-tighter text-xl uppercase">VARGASKEO</span>
+                        </div>
+                        <div className="flex items-center gap-4">
+                            <button onClick={() => setLang(lang === 'en' ? 'fr' : 'en')} className="px-3 py-1.5 bg-slate-900 text-white text-[10px] font-black rounded-lg uppercase">
+                                {lang === 'en' ? 'FR' : 'EN'}
+                            </button>
+                            <button onClick={() => setCurrentPage('contact')} className="text-slate-500 hover:text-indigo-600 transition-colors p-2 bg-slate-50 rounded-xl border border-slate-100">
+                                <Icon name="mail" />
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+            );
+
+            const Home = () => (
+                <div className="min-h-screen flex flex-col items-center justify-center bg-white text-slate-900 relative overflow-hidden">
+                    <div className="fixed top-6 right-6 z-[60] flex items-center gap-3">
+                        <button onClick={() => setLang(lang === 'en' ? 'fr' : 'en')} className="w-10 h-10 flex items-center justify-center bg-slate-900 text-white rounded-xl shadow-lg text-[10px] font-black uppercase">{lang === 'en' ? 'FR' : 'EN'}</button>
+                        <button onClick={() => setCurrentPage('resume')} className="w-10 h-10 flex items-center justify-center bg-white border border-slate-200 rounded-xl shadow-sm text-slate-900 font-black hover:text-indigo-600">A</button>
+                        <button onClick={() => setCurrentPage('articles')} className="w-10 h-10 flex items-center justify-center bg-white border border-slate-200 rounded-xl shadow-sm text-slate-900 font-black hover:text-cyan-500">I</button>
+                    </div>
+                    <div className="z-10 text-center space-y-10 px-6">
+                        <div className="inline-block p-6 bg-white rounded-[2.5rem] shadow-xl border border-slate-50"><BrandLogo className="w-32 h-32 md:w-44 md:h-44" /></div>
+                        <div className="space-y-4">
+                            <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-slate-900 uppercase">VARGASKEO</h1>
+                            <p className="text-lg md:text-xl font-bold text-slate-400 tracking-[0.3em] uppercase">
+                                {t.home.subtitle.split('|')[0]} <span className="text-indigo-600">|</span> {t.home.subtitle.split('|')[1]}
+                            </p>
+                        </div>
+                        <div className="flex flex-wrap justify-center gap-4">
+                            <div className="flex items-center gap-2 px-5 py-2 bg-slate-50 border border-slate-100 rounded-full text-sm font-bold text-slate-600">
+                                <Icon name="shield-check" className="text-indigo-600" /> {t.home.consultant}
+                            </div>
+                            <div className="flex items-center gap-2 px-5 py-2 bg-slate-50 border border-slate-100 rounded-full text-sm font-bold text-slate-600">
+                                <Icon name="message-square" className="text-cyan-500" /> {t.home.ai}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const Resume = () => (
+                <div className="min-h-screen bg-white pt-32 pb-20 px-6">
+                    <div className="max-w-4xl mx-auto">
+                        <button onClick={() => setCurrentPage('home')} className="flex items-center gap-2 text-slate-400 hover:text-indigo-600 mb-10 font-bold uppercase tracking-widest text-sm">
+                            <Icon name="arrow-left" size={16} /> {t.resume.back}
+                        </button>
+                        <h2 className="text-5xl font-black mb-12 tracking-tighter uppercase">{t.resume.title}</h2>
+                        <div className="grid lg:grid-cols-12 gap-16">
+                            <div className="lg:col-span-8 space-y-12">
+                                <p className="text-xl leading-relaxed text-slate-700 font-medium">{t.resume.summary}</p>
+                                <div className="space-y-8">
+                                    <div className="pl-8 border-l-2 border-indigo-600">
+                                        <h4 className="text-2xl font-black">{t.resume.consultingTitle}</h4>
+                                        <p className="text-indigo-600 font-bold uppercase text-xs mb-4">{t.resume.consultingRole}</p>
+                                        <ul className="space-y-3 text-slate-600">
+                                            <li>• {t.resume.audit}</li>
+                                            <li>• {t.resume.aiOpt}</li>
+                                            <li>• {t.resume.roadmap}</li>
+                                        </ul>
+                                    </div>
+                                    <div className="pl-8 border-l-2 border-slate-200">
+                                        <h4 className="text-2xl font-black italic">TELUS</h4>
+                                        <p className="text-slate-400 font-bold uppercase text-xs mb-4">{t.resume.telusRole}</p>
+                                        <ul className="space-y-3 text-slate-500 text-sm">
+                                            {t.resume.telusPoints.map((p, i) => <li key={i}>• {p}</li>)}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const ArticlePage = ({ articleKey }) => {
+                const h = t.articles[articleKey];
+                return (
+                    <div className="min-h-screen bg-white pt-32 pb-20 px-6">
+                        <article className="max-w-3xl mx-auto">
+                            <button onClick={() => setCurrentPage('articles')} className="text-slate-400 mb-12 flex items-center gap-2 font-bold uppercase tracking-widest text-sm hover:text-indigo-600"><Icon name="arrow-left" size={16}/> {t.articles.backToArchive}</button>
+                            <span className="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-lg text-[10px] font-black uppercase mb-6 inline-block">{h.tag}</span>
+                            <h1 className="text-4xl md:text-5xl font-black mb-8 leading-tight tracking-tighter">{h.title}</h1>
+                            <div className="space-y-8 text-slate-600 leading-relaxed text-lg">
+                                <section><h2 className="text-2xl font-black text-slate-900 mb-4">{h.h2_1}</h2><p>{h.p_1}</p></section>
+                                <section><h2 className="text-2xl font-black text-slate-900 mb-4">{h.h2_2}</h2><p>{h.p_2}</p></section>
+                                <section className="bg-slate-50 p-8 rounded-3xl border-l-4 border-indigo-600">
+                                    <h3 className="text-xl font-black uppercase mb-4 text-slate-900">{h.offerTitle}</h3>
+                                    <p className="mb-6">{h.offerDesc}</p>
+                                    {h.referralCode && <div className="mb-6 font-black text-2xl text-indigo-600 border-2 border-dashed p-4 inline-block rounded-xl">{h.referralCode}</div>}
+                                    <br/>
+                                    <a href="#" className="inline-block bg-slate-900 text-white px-8 py-4 rounded-xl font-bold uppercase text-sm tracking-widest">{h.offerButton}</a>
+                                </section>
+                                <section><h2 className="text-2xl font-black text-slate-900 mb-4">{h.verdictTitle}</h2><p>{h.verdictDesc}</p></section>
+                            </div>
+                        </article>
+                    </div>
+                );
+            };
+
+            const Articles = () => (
+                <div className="min-h-screen bg-slate-50 pt-32 pb-20 px-6">
+                    <div className="max-w-5xl mx-auto">
+                        <h2 className="text-5xl font-black uppercase italic mb-12 text-center">{t.articles.title}</h2>
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {['fizz', 'hilo'].map(k => (
+                                <div key={k} onClick={() => setCurrentPage(`art-${k}`)} className="bg-white p-8 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all cursor-pointer">
+                                    <span className="text-[10px] font-black uppercase text-indigo-400 tracking-widest mb-2 block">{t.articles[k].tag}</span>
+                                    <h3 className="text-2xl font-black mb-4">{t.articles[k].title}</h3>
+                                    <div className="text-indigo-600 font-black uppercase text-[10px] tracking-widest flex items-center">{t.articles.readMore} <Icon name="chevron-right" size={14}/></div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const Contact = () => {
+                const [status, setStatus] = useState('idle');
+                if (status === 'success') return <div className="min-h-screen flex items-center justify-center text-center"><div><Icon name="check-circle" size={64} className="text-emerald-500 mx-auto mb-4"/><h2 className="text-3xl font-black uppercase">{t.contact.success}</h2><button onClick={() => setCurrentPage('home')} className="mt-8 text-indigo-600 font-bold uppercase tracking-widest">Back Home</button></div></div>;
+                return (
+                    <div className="min-h-screen bg-white pt-32 px-6">
+                        <div className="max-w-xl mx-auto">
+                            <h2 className="text-5xl font-black uppercase mb-8">{t.contact.title}</h2>
+                            <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); setStatus('success'); }}>
+                                <input placeholder={t.contact.name} className="w-full p-4 bg-slate-50 rounded-xl border border-slate-100" />
+                                <input placeholder={t.contact.email} type="email" className="w-full p-4 bg-slate-50 rounded-xl border border-slate-100" />
+                                <textarea placeholder={t.contact.message} rows="4" className="w-full p-4 bg-slate-50 rounded-xl border border-slate-100" />
+                                <button className="w-full py-4 bg-indigo-600 text-white font-black rounded-xl uppercase tracking-widest">{t.contact.send}</button>
+                            </form>
+                        </div>
+                    </div>
+                );
+            };
+
+            return (
+                <div>
+                    {currentPage !== 'home' && <Navbar />}
+                    {currentPage === 'home' && <Home />}
+                    {currentPage === 'resume' && <Resume />}
+                    {currentPage === 'articles' && <Articles />}
+                    {currentPage === 'contact' && <Contact />}
+                    {currentPage === 'art-fizz' && <ArticlePage articleKey="fizz" />}
+                    {currentPage === 'art-hilo' && <ArticlePage articleKey="hilo" />}
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
